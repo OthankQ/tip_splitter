@@ -22,8 +22,9 @@ const StyledDiv = styled.div`
     background-color: hsl(189, 41%, 97%);
     text-align: right;
     font-size: 18px;
-    font-weight: 800;
+    font-weight: bold;
     color: hsl(183, 100%, 15%);
+    font-family: 'Space Mono', monospace;
 
     :focus {
       outline: none;
