@@ -5,15 +5,14 @@ import styled from 'styled-components';
 import dollarSign from '../public/images/icon-dollar.svg';
 
 const StyledDiv = styled.div`
-  width: 90%;
+  width: 95%;
   height: 35px;
   border: none;
-  padding: 5px;
+  padding: 9px;
   padding-left: 20px;
   display: flex;
   justify-content: space-between;
   background-color: hsl(189, 41%, 97%);
-
   Image {
     width: 5px;
   }
@@ -22,6 +21,9 @@ const StyledDiv = styled.div`
     border: none;
     background-color: hsl(189, 41%, 97%);
     text-align: right;
+    font-size: 18px;
+    font-weight: 800;
+    color: hsl(183, 100%, 15%);
 
     :focus {
       outline: none;
