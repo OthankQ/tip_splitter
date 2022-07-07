@@ -34,19 +34,30 @@ const StyledDiv = styled.div`
 
 type InputBarProps = {
   icon: string;
+  onChange?: (
+    event: React.ChangeEvent<HTMLInputElement>,
+    value: string
+  ) => void;
 };
 
 export class InputBar extends React.Component<InputBarProps, {}> {
   constructor(props: InputBarProps) {
     super(props);
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange(event: React.ChangeEvent<HTMLInputElement>) {
+    if (this.props.onChange) {
+      this.props.onChange(event, event.target.value);
+    }
   }
 
   render() {
-    const { icon } = this.props;
+    const { icon, onChange } = this.props;
     return (
       <StyledDiv>
         <Image src={icon} alt="icon" />
-        <input type="text" placeholder="0" />
+        <input type="text" placeholder="0" onChange={this.handleChange} />
       </StyledDiv>
     );
   }

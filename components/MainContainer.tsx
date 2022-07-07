@@ -59,17 +59,58 @@ const StyledDiv = styled.div`
   }
 `;
 
-export class MainContainer extends React.Component {
+type MainContainerState = {
+  bill: number;
+  tipPercentage: number;
+  numOfPeople: number;
+  tipPerPerson: number;
+  totalPerPerson: number;
+};
+
+export class MainContainer extends React.Component<{}, MainContainerState> {
+  constructor(props: {}) {
+    super(props);
+    this.state = {
+      bill: 0,
+      tipPercentage: 0,
+      numOfPeople: 0,
+      tipPerPerson: 0,
+      totalPerPerson: 0,
+    };
+
+    this.handleBillInput = this.handleBillInput.bind(this);
+    this.handleNumOfPeopleInput = this.handleNumOfPeopleInput.bind(this);
+  }
+
+  handleBillInput(event: React.ChangeEvent<HTMLInputElement>, value: string) {
+    this.setState({ bill: parseInt(value) });
+  }
+
+  handleNumOfPeopleInput(
+    event: React.ChangeEvent<HTMLInputElement>,
+    value: string
+  ) {
+    this.setState({ numOfPeople: parseInt(value) });
+  }
+
   render() {
     return (
       <StyledDiv>
         <div className="left-container">
-          <Input label="Bill" icon={dollarSign} />
+          <Input
+            label="Bill"
+            icon={dollarSign}
+            onChange={this.handleBillInput}
+          />
           <div className="tip-buttons">
             <h4>Select Tip %</h4>
             <TipButtoncluster />
           </div>
-          <Input label="Number of People" icon={personIcon} />
+          <Input
+            label="Number of People"
+            icon={personIcon}
+            onChange={this.handleNumOfPeopleInput}
+          />
         </div>
         <div className="right-container">
           <div className="top-content">
