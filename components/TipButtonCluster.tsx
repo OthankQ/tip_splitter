@@ -26,15 +26,27 @@ const StyledDiv = styled.div`
   }
 `;
 
-export class TipButtoncluster extends React.Component {
+type tipButtonClusterProps = {
+  onClick: (newValue: string) => void;
+};
+
+export class TipButtoncluster extends React.Component<
+  tipButtonClusterProps,
+  {}
+> {
+  constructor(props: tipButtonClusterProps) {
+    super(props);
+  }
+
   render() {
+    const { onClick } = this.props;
     return (
       <StyledDiv>
-        <TipButton percentage="5" />
-        <TipButton percentage="10" />
-        <TipButton percentage="15" />
-        <TipButton percentage="25" />
-        <TipButton percentage="50" />
+        <TipButton onClick={onClick} percentage="5" />
+        <TipButton onClick={onClick} percentage="10" />
+        <TipButton onClick={onClick} percentage="15" />
+        <TipButton onClick={onClick} percentage="25" />
+        <TipButton onClick={onClick} percentage="50" />
         <button className="custom">
           <h3>Custom</h3>
         </button>

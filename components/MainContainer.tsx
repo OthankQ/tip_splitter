@@ -80,6 +80,7 @@ export class MainContainer extends React.Component<{}, MainContainerState> {
 
     this.handleBillInput = this.handleBillInput.bind(this);
     this.handleNumOfPeopleInput = this.handleNumOfPeopleInput.bind(this);
+    this.handleTipButtonPress = this.handleTipButtonPress.bind(this);
   }
 
   handleBillInput(event: React.ChangeEvent<HTMLInputElement>, value: string) {
@@ -93,6 +94,10 @@ export class MainContainer extends React.Component<{}, MainContainerState> {
     this.setState({ numOfPeople: parseInt(value) });
   }
 
+  handleTipButtonPress(newValue: string) {
+    this.setState({ tipPercentage: parseInt(newValue) });
+  }
+
   render() {
     return (
       <StyledDiv>
@@ -104,7 +109,7 @@ export class MainContainer extends React.Component<{}, MainContainerState> {
           />
           <div className="tip-buttons">
             <h4>Select Tip %</h4>
-            <TipButtoncluster />
+            <TipButtoncluster onClick={this.handleTipButtonPress} />
           </div>
           <Input
             label="Number of People"

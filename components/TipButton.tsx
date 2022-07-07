@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const StyledDiv = styled.div`
+const StyledButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -10,6 +10,8 @@ const StyledDiv = styled.div`
   height: 40px;
   width: 30%;
   border-radius: 5px;
+  border: none;
+  font-family: 'Space Mono', monospace;
 
   :hover {
     background-color: hsl(173, 61%, 44%);
@@ -20,19 +22,28 @@ const StyledDiv = styled.div`
 
 type TipButtonProps = {
   percentage: string;
+  onClick: (newValue: string) => void;
 };
 
 export class TipButton extends React.Component<TipButtonProps, {}> {
   constructor(props: TipButtonProps) {
     super(props);
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick(event: React.MouseEvent<HTMLInputElement>) {
+    if (this.props.onClick) {
+      console.log(event.target);
+      this.props.onClick(event.target.value);
+    }
   }
 
   render() {
     const { percentage } = this.props;
     return (
-      <StyledDiv>
-        <h3>{percentage}%</h3>
-      </StyledDiv>
+      <StyledButton value={percentage} onClick={this.handleClick}>
+        {percentage}%
+      </StyledButton>
     );
   }
 }
