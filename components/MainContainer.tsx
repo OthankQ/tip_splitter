@@ -91,6 +91,7 @@ export class MainContainer extends React.Component<{}, MainContainerState> {
     this.handleTipButtonPress = this.handleTipButtonPress.bind(this);
     this.handleCustomButonPress = this.handleCustomButonPress.bind(this);
     this.handleInputValueChange = this.handleInputValueChange.bind(this);
+    this.handleResetBtnClick = this.handleResetBtnClick.bind(this);
   }
 
   handleBillInput(event: React.ChangeEvent<HTMLInputElement>, value: string) {
@@ -136,6 +137,23 @@ export class MainContainer extends React.Component<{}, MainContainerState> {
     }
   }
 
+  handleResetBtnClick() {
+    this.setState(
+      {
+        bill: 0,
+        tipPercentage: 0,
+        numOfPeople: 0,
+        isCustom: false,
+      },
+      () => {
+        this.setState({
+          tipPerPerson: '0',
+          totalPerPerson: '0',
+        });
+      }
+    );
+  }
+
   componentDidUpdate(preProps, prevState: MainContainerState) {
     if (
       this.state.bill !== prevState.bill ||
@@ -147,7 +165,7 @@ export class MainContainer extends React.Component<{}, MainContainerState> {
   }
 
   render() {
-    const { tipPerPerson, totalPerPerson } = this.state;
+    const { tipPerPerson, totalPerPerson, bill, numOfPeople } = this.state;
     return (
       <StyledDiv>
         <div className="left-container">
@@ -155,6 +173,7 @@ export class MainContainer extends React.Component<{}, MainContainerState> {
             label="Bill"
             icon={dollarSign}
             onChange={this.handleBillInput}
+            value={bill}
           />
           <div className="tip-buttons">
             <h4>Select Tip %</h4>
@@ -167,6 +186,7 @@ export class MainContainer extends React.Component<{}, MainContainerState> {
             label="Number of People"
             icon={personIcon}
             onChange={this.handleNumOfPeopleInput}
+            value={numOfPeople}
           />
         </div>
         <div className="right-container">
@@ -175,7 +195,9 @@ export class MainContainer extends React.Component<{}, MainContainerState> {
             <ResultDisplay label="Total" result={`${totalPerPerson}`} />
           </div>
           <div className="bottom-content">
-            <button className="reset-btn">RESET</button>
+            <button onClick={this.handleResetBtnClick} className="reset-btn">
+              RESET
+            </button>
           </div>
         </div>
       </StyledDiv>

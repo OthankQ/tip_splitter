@@ -12,6 +12,7 @@ const StyledDiv = styled.div`
 type InputProps = {
   label: string;
   icon: string;
+  value: number;
   onChange: (event: React.ChangeEvent<HTMLInputElement>, value: string) => void;
 };
 
@@ -28,11 +29,11 @@ export class Input extends React.Component<InputProps, InputState> {
   }
 
   render() {
-    const { label, icon, onChange } = this.props;
+    const { label, value, icon, onChange } = this.props;
     return (
       <StyledDiv>
         <h4>{label}</h4>
-        <InputBar icon={icon} onChange={onChange} />
+        <InputBar value={value} icon={icon} onChange={onChange} />
       </StyledDiv>
     );
   }

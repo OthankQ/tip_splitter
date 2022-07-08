@@ -40,6 +40,7 @@ const StyledDiv = styled.div`
 
 type InputBarProps = {
   icon: string;
+  value: number;
   onChange?: (
     event: React.ChangeEvent<HTMLInputElement>,
     value: string
@@ -59,11 +60,16 @@ export class InputBar extends React.Component<InputBarProps, {}> {
   }
 
   render() {
-    const { icon, onChange } = this.props;
+    const { icon, value, onChange } = this.props;
     return (
       <StyledDiv>
         <Image src={icon} alt="icon" />
-        <input type="text" placeholder="0" onChange={this.handleChange} />
+        <input
+          value={value}
+          type="text"
+          placeholder="0"
+          onChange={this.handleChange}
+        />
       </StyledDiv>
     );
   }
