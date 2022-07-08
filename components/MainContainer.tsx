@@ -81,8 +81,8 @@ export class MainContainer extends React.Component<{}, MainContainerState> {
       bill: 0,
       tipPercentage: 0,
       numOfPeople: 0,
-      tipPerPerson: '0',
-      totalPerPerson: '0',
+      tipPerPerson: '$0.00',
+      totalPerPerson: '$0.00',
       isCustom: false,
     };
 
@@ -147,8 +147,8 @@ export class MainContainer extends React.Component<{}, MainContainerState> {
       },
       () => {
         this.setState({
-          tipPerPerson: '0',
-          totalPerPerson: '0',
+          tipPerPerson: '$0.00',
+          totalPerPerson: '$0.00',
         });
       }
     );
