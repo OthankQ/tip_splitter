@@ -51,10 +51,16 @@ const StyledDiv = styled.div`
     background-color: hsl(173, 61%, 44%);
     color: hsl(183, 100%, 15%);
     border: none;
+    font-family: 'Space Mono', monospace;
+    font-size: 1.2rem;
+    font-weight: 800;
 
-    h3 {
-      font-family: 'Space Mono', monospace;
-      letter-spacing: 0.05rem;
+    :active {
+      background-color: #76c7bd;
+    }
+
+    :hover {
+      cursor: pointer;
     }
   }
 `;
@@ -158,9 +164,7 @@ export class MainContainer extends React.Component<{}, MainContainerState> {
             <ResultDisplay label="Total" result={totalPerPerson} />
           </div>
           <div className="bottom-content">
-            <button className="reset-btn">
-              <h3>RESET</h3>
-            </button>
+            <button className="reset-btn">RESET</button>
           </div>
         </div>
       </StyledDiv>

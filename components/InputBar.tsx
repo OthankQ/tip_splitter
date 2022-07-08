@@ -13,6 +13,12 @@ const StyledDiv = styled.div`
   display: flex;
   justify-content: space-between;
   background-color: hsl(189, 41%, 97%);
+  box-sizing: border-box;
+
+  :focus-within {
+    outline: 3px solid hsl(173, 61%, 44%);
+  }
+
   Image {
     width: 5px;
   }

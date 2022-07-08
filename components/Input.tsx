@@ -15,9 +15,16 @@ type InputProps = {
   onChange: (event: React.ChangeEvent<HTMLInputElement>, value: string) => void;
 };
 
-export class Input extends React.Component<InputProps, {}> {
+type InputState = {
+  isActive: boolean;
+};
+
+export class Input extends React.Component<InputProps, InputState> {
   constructor(props: InputProps) {
     super(props);
+    this.state = {
+      isActive: false,
+    };
   }
 
   render() {

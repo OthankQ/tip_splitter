@@ -15,9 +15,12 @@ const StyledButton = styled.button`
   font-size: 1.2rem;
   font-weight: 800;
 
-  :hover {
+  :active {
     background-color: hsl(173, 61%, 44%);
     color: hsl(183, 100%, 15%);
+  }
+
+  :hover {
     cursor: pointer;
   }
 `;
