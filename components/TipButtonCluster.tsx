@@ -28,6 +28,7 @@ const StyledDiv = styled.div`
 
 type tipButtonClusterProps = {
   onClick: (newValue: string) => void;
+  customClick: () => void;
 };
 
 export class TipButtoncluster extends React.Component<
@@ -36,6 +37,11 @@ export class TipButtoncluster extends React.Component<
 > {
   constructor(props: tipButtonClusterProps) {
     super(props);
+    this.handleCustomClick = this.handleCustomClick.bind(this);
+  }
+
+  handleCustomClick(event: React.MouseEvent<HTMLInputElement>) {
+    this.props.customClick();
   }
 
   render() {
@@ -47,8 +53,8 @@ export class TipButtoncluster extends React.Component<
         <TipButton onClick={onClick} percentage="15" />
         <TipButton onClick={onClick} percentage="25" />
         <TipButton onClick={onClick} percentage="50" />
-        <button className="custom">
-          <h3>Custom</h3>
+        <button className="custom" onClick={this.handleCustomClick}>
+          Custom
         </button>
       </StyledDiv>
     );
