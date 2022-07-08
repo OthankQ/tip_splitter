@@ -42,7 +42,7 @@ export class ResultDisplay extends React.Component<ResultDisplayProps, {}> {
           <p>/ person</p>
         </div>
         <div className="number-content">
-          <h1>${result}</h1>
+          <h1>{result}</h1>
         </div>
       </StyledDiv>
     );

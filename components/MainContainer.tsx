@@ -113,16 +113,27 @@ export class MainContainer extends React.Component<{}, MainContainerState> {
   }
 
   handleInputValueChange() {
-    console.log('this ran');
     const { bill, tipPercentage, numOfPeople } = this.state;
 
     let calculatedTipPerPerson = (bill * tipPercentage * 0.01) / numOfPeople;
     let calculatedTotalPerPerson = bill / numOfPeople + calculatedTipPerPerson;
 
-    this.setState({
-      tipPerPerson: calculatedTipPerPerson.toFixed(2),
-      totalPerPerson: calculatedTotalPerPerson.toFixed(2),
-    });
+    if (
+      !calculatedTipPerPerson ||
+      !calculatedTotalPerPerson ||
+      calculatedTipPerPerson == Infinity ||
+      calculatedTotalPerPerson == Infinity
+    ) {
+      this.setState({
+        tipPerPerson: '...',
+        totalPerPerson: '...',
+      });
+    } else {
+      this.setState({
+        tipPerPerson: `$${calculatedTipPerPerson.toFixed(2)}`,
+        totalPerPerson: `$${calculatedTotalPerPerson.toFixed(2)}`,
+      });
+    }
   }
 
   componentDidUpdate(preProps, prevState: MainContainerState) {
@@ -160,8 +171,8 @@ export class MainContainer extends React.Component<{}, MainContainerState> {
         </div>
         <div className="right-container">
           <div className="top-content">
-            <ResultDisplay label="Tip Amount" result={tipPerPerson} />
-            <ResultDisplay label="Total" result={totalPerPerson} />
+            <ResultDisplay label="Tip Amount" result={`${tipPerPerson}`} />
+            <ResultDisplay label="Total" result={`${totalPerPerson}`} />
           </div>
           <div className="bottom-content">
             <button className="reset-btn">RESET</button>
