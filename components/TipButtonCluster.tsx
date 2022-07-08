@@ -17,6 +17,9 @@ const StyledDiv = styled.div`
     border: none;
     letter-spacing: 0.1rem;
     border-radius: 5px;
+    font-family: 'Space Mono', monospace;
+    font-size: 1.2rem;
+    font-weight: 800;
 
     :hover {
       background-color: hsl(173, 61%, 44%);
@@ -40,7 +43,7 @@ export class TipButtoncluster extends React.Component<
     this.handleCustomClick = this.handleCustomClick.bind(this);
   }
 
-  handleCustomClick(event: React.MouseEvent<HTMLInputElement>) {
+  handleCustomClick() {
     this.props.customClick();
   }
 

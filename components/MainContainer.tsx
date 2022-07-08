@@ -63,8 +63,8 @@ type MainContainerState = {
   bill: number;
   tipPercentage: number;
   numOfPeople: number;
-  tipPerPerson: number;
-  totalPerPerson: number;
+  tipPerPerson: string;
+  totalPerPerson: string;
   isCustom: boolean;
 };
 
@@ -75,8 +75,8 @@ export class MainContainer extends React.Component<{}, MainContainerState> {
       bill: 0,
       tipPercentage: 0,
       numOfPeople: 0,
-      tipPerPerson: 0,
-      totalPerPerson: 0,
+      tipPerPerson: '0',
+      totalPerPerson: '0',
       isCustom: false,
     };
 
@@ -84,10 +84,11 @@ export class MainContainer extends React.Component<{}, MainContainerState> {
     this.handleNumOfPeopleInput = this.handleNumOfPeopleInput.bind(this);
     this.handleTipButtonPress = this.handleTipButtonPress.bind(this);
     this.handleCustomButonPress = this.handleCustomButonPress.bind(this);
+    this.handleInputValueChange = this.handleInputValueChange.bind(this);
   }
 
   handleBillInput(event: React.ChangeEvent<HTMLInputElement>, value: string) {
-    this.setState({ bill: parseInt(value) });
+    this.setState({ bill: parseFloat(value) });
   }
 
   handleNumOfPeopleInput(
@@ -105,7 +106,31 @@ export class MainContainer extends React.Component<{}, MainContainerState> {
     this.setState({ isCustom: !this.state.isCustom });
   }
 
+  handleInputValueChange() {
+    console.log('this ran');
+    const { bill, tipPercentage, numOfPeople } = this.state;
+
+    let calculatedTipPerPerson = (bill * tipPercentage * 0.01) / numOfPeople;
+    let calculatedTotalPerPerson = bill / numOfPeople + calculatedTipPerPerson;
+
+    this.setState({
+      tipPerPerson: calculatedTipPerPerson.toFixed(2),
+      totalPerPerson: calculatedTotalPerPerson.toFixed(2),
+    });
+  }
+
+  componentDidUpdate(preProps, prevState: MainContainerState) {
+    if (
+      this.state.bill !== prevState.bill ||
+      this.state.numOfPeople !== prevState.numOfPeople ||
+      this.state.tipPercentage !== prevState.tipPercentage
+    ) {
+      this.handleInputValueChange();
+    }
+  }
+
   render() {
+    const { tipPerPerson, totalPerPerson } = this.state;
     return (
       <StyledDiv>
         <div className="left-container">
@@ -129,8 +154,8 @@ export class MainContainer extends React.Component<{}, MainContainerState> {
         </div>
         <div className="right-container">
           <div className="top-content">
-            <ResultDisplay label="Tip Amount" result={4.27} />
-            <ResultDisplay label="Total" result={32.79} />
+            <ResultDisplay label="Tip Amount" result={tipPerPerson} />
+            <ResultDisplay label="Total" result={totalPerPerson} />
           </div>
           <div className="bottom-content">
             <button className="reset-btn">

@@ -12,6 +12,8 @@ const StyledButton = styled.button`
   border-radius: 5px;
   border: none;
   font-family: 'Space Mono', monospace;
+  font-size: 1.2rem;
+  font-weight: 800;
 
   :hover {
     background-color: hsl(173, 61%, 44%);
@@ -32,10 +34,7 @@ export class TipButton extends React.Component<TipButtonProps, {}> {
   }
 
   handleClick(event: React.MouseEvent<HTMLInputElement>) {
-    if (this.props.onClick) {
-      console.log(event.target);
-      this.props.onClick(event.target.value);
-    }
+    this.props.onClick((event.target as HTMLInputElement).value);
   }
 
   render() {
