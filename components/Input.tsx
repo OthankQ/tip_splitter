@@ -23,7 +23,7 @@ type InputProps = {
   label: string;
   icon: string;
   value: number | string;
-  onChange: (event: React.ChangeEvent<HTMLInputElement>, value: string) => void;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>, value: number) => void;
   onClick: () => void;
 };
 

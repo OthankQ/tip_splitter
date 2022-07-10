@@ -210,7 +210,7 @@ export class MainContainer extends React.Component<{}, MainContainerState> {
     );
   }
 
-  componentDidUpdate(preProps, prevState: MainContainerState) {
+  componentDidUpdate(_preProps: any, prevState: MainContainerState) {
     if (
       this.state.bill !== prevState.bill ||
       this.state.numOfPeople !== prevState.numOfPeople ||

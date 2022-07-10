@@ -24,7 +24,7 @@ const StyledDiv = styled.div`
 `;
 
 type ResultDisplayProps = {
-  result: number;
+  result: string;
   label: string;
 };
 

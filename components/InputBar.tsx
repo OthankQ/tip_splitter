@@ -32,6 +32,7 @@ const StyledDiv = styled.div`
     font-weight: bold;
     color: hsl(183, 100%, 15%);
     font-family: 'Space Mono', monospace;
+    width: 90%;
 
     :focus {
       outline: none;
@@ -44,29 +45,40 @@ type InputBarProps = {
   value: number | string;
   onChange?: (
     event: React.ChangeEvent<HTMLInputElement>,
-    value: string
+    value: number
   ) => void;
   onClick: () => void;
   handleZero: (inputValue: number) => void;
   isZero: boolean;
 };
 
-export class InputBar extends React.Component<InputBarProps, {}> {
+type InputBarState = {
+  isActive: boolean;
+};
+
+export class InputBar extends React.Component<InputBarProps, InputBarState> {
   constructor(props: InputBarProps) {
     super(props);
+    this.state = {
+      isActive: false,
+    };
+
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
   }
 
   handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     if (this.props.onChange) {
-      this.props.onChange(event, event.target.value);
+      this.props.onChange(event, parseFloat(event.target.value));
       this.handleZero(parseInt(event.target.value));
     }
   }
 
-  handleClick(event: React.FocusEvent<HTMLInputElement>) {
+  handleClick() {
     this.props.onClick();
+    this.setState({
+      isActive: true,
+    });
   }
 
   handleZero(inputValue: number) {
@@ -75,10 +87,16 @@ export class InputBar extends React.Component<InputBarProps, {}> {
 
   render() {
     const { icon, value, isZero } = this.props;
+    const { isActive } = this.state;
+
     return (
       <StyledDiv
         style={{
-          outline: isZero ? '3px solid red' : 'none',
+          outline: isZero
+            ? '3px solid red'
+            : isActive
+            ? '3px solid hsl(173, 61%, 44%)'
+            : 'none',
         }}
       >
         <Image src={icon} alt="icon" />
