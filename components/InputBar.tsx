@@ -81,6 +81,12 @@ export class InputBar extends React.Component<InputBarProps, InputBarState> {
     });
   }
 
+  handleOnBlur() {
+    this.setState({
+      isActive: false,
+    });
+  }
+
   handleZero(inputValue: number) {
     this.props.handleZero(inputValue);
   }
@@ -104,7 +110,10 @@ export class InputBar extends React.Component<InputBarProps, InputBarState> {
           value={value}
           type="text"
           onChange={this.handleChange}
-          onClick={this.handleClick}
+          onFocus={this.handleClick}
+          onBlur={(e) => {
+            this.handleOnBlur();
+          }}
           className={isZero ? 'zero-warning' : undefined}
         />
       </StyledDiv>
