@@ -15,7 +15,8 @@ const StyledDiv = styled.div`
   justify-content: space-between;
   background-color: hsl(189, 41%, 97%);
   box-sizing: border-box;
-  outline: ${(props) => (props.isZero ? '3px solid red' : 'none')};
+  outline: ${(props: InputBarProps) =>
+    props.isZero ? '3px solid red' : 'none'};
 
   :focus-within {
     outline: 3px solid hsl(173, 61%, 44%);
