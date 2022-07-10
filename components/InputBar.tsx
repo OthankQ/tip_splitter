@@ -15,6 +15,7 @@ const StyledDiv = styled.div`
   justify-content: space-between;
   background-color: hsl(189, 41%, 97%);
   box-sizing: border-box;
+  outline: ${(props) => (props.isZero ? '3px solid red' : 'none')};
 
   :focus-within {
     outline: 3px solid hsl(173, 61%, 44%);
@@ -47,6 +48,8 @@ type InputBarProps = {
     value: string
   ) => void;
   onClick: () => void;
+  handleZero: (inputValue: number) => void;
+  isZero: boolean;
 };
 
 export class InputBar extends React.Component<InputBarProps, {}> {
@@ -59,6 +62,7 @@ export class InputBar extends React.Component<InputBarProps, {}> {
   handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     if (this.props.onChange) {
       this.props.onChange(event, event.target.value);
+      this.handleZero(parseInt(event.target.value));
     }
   }
 
@@ -66,8 +70,12 @@ export class InputBar extends React.Component<InputBarProps, {}> {
     this.props.onClick();
   }
 
+  handleZero(inputValue: number) {
+    this.props.handleZero(inputValue);
+  }
+
   render() {
-    const { icon, value } = this.props;
+    const { icon, value, isZero } = this.props;
     return (
       <StyledDiv>
         <Image src={icon} alt="icon" />
@@ -76,6 +84,7 @@ export class InputBar extends React.Component<InputBarProps, {}> {
           type="text"
           onChange={this.handleChange}
           onClick={this.handleClick}
+          className={isZero ? 'zero-warning' : undefined}
         />
       </StyledDiv>
     );
