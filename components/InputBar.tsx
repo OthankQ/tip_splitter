@@ -15,8 +15,6 @@ const StyledDiv = styled.div`
   justify-content: space-between;
   background-color: hsl(189, 41%, 97%);
   box-sizing: border-box;
-  outline: ${(props: InputBarProps) =>
-    props.isZero ? '3px solid red' : 'none'};
 
   :focus-within {
     outline: 3px solid hsl(173, 61%, 44%);
@@ -78,7 +76,11 @@ export class InputBar extends React.Component<InputBarProps, {}> {
   render() {
     const { icon, value, isZero } = this.props;
     return (
-      <StyledDiv>
+      <StyledDiv
+        style={{
+          outline: isZero ? '3px solid red' : 'none',
+        }}
+      >
         <Image src={icon} alt="icon" />
         <input
           value={value}
