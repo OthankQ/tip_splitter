@@ -127,8 +127,9 @@ export class MainContainer extends React.Component<{}, MainContainerState> {
     this.setState({ isCustom: true, tipPercentage: 0 });
   }
 
-  handleCustomTipInputChange() {
-    this.setState({ bill: '' });
+  handleCustomTipInputChange(event: React.ChangeEvent<HTMLInputElement>) {
+    console.log(event.target);
+    this.setState({ tipPercentage: parseInt(event.target.value) });
   }
 
   handleInputValueChange() {
@@ -181,9 +182,9 @@ export class MainContainer extends React.Component<{}, MainContainerState> {
   handleResetBtnClick() {
     this.setState(
       {
-        bill: 0,
+        bill: '',
         tipPercentage: 0,
-        numOfPeople: 0,
+        numOfPeople: '',
         isCustom: false,
       },
       () => {
@@ -231,6 +232,7 @@ export class MainContainer extends React.Component<{}, MainContainerState> {
               customClick={this.handleCustomButtonPress}
               isCustom={isCustom}
               currentTipPercentage={tipPercentage}
+              onCustomChange={this.handleCustomTipInputChange}
             />
           </div>
           <Input

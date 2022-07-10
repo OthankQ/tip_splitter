@@ -58,6 +58,7 @@ type tipButtonClusterProps = {
   customClick: () => void;
   isCustom: boolean;
   currentTipPercentage: number;
+  onCustomChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 export class TipButtoncluster extends React.Component<
@@ -71,6 +72,7 @@ export class TipButtoncluster extends React.Component<
     };
 
     this.handleCustomClick = this.handleCustomClick.bind(this);
+    this.handleCustomInputChange = this.handleCustomInputChange.bind(this);
   }
 
   handleCustomClick() {
@@ -82,6 +84,10 @@ export class TipButtoncluster extends React.Component<
 
   handleTipButtonClick(event: any) {
     this.props.onClick(event.target.value);
+  }
+
+  handleCustomInputChange(event: any) {
+    this.props.onCustomChange(event);
   }
 
   render() {
@@ -119,7 +125,11 @@ export class TipButtoncluster extends React.Component<
             Custom
           </button>
         ) : (
-          <input autoFocus className="custom-input"></input>
+          <input
+            autoFocus
+            className="custom-input"
+            onChange={this.handleCustomInputChange}
+          ></input>
         )}
       </StyledDiv>
     );
