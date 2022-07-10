@@ -26,6 +26,9 @@ const Home: NextPage = () => {
         <h2>TTER</h2>
       </div>
       <MainContainer />
+      <div className="made-by">
+        <h5>Created By Ryan Kim</h5>
+      </div>
     </StyledContainer>
   );
 };
