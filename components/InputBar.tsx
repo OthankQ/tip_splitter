@@ -10,6 +10,7 @@ const StyledDiv = styled.div`
   border: none;
   padding: 9px;
   padding-left: 20px;
+  border-radius: 5px;
   display: flex;
   justify-content: space-between;
   background-color: hsl(189, 41%, 97%);
@@ -64,12 +65,7 @@ export class InputBar extends React.Component<InputBarProps, {}> {
     return (
       <StyledDiv>
         <Image src={icon} alt="icon" />
-        <input
-          value={value}
-          type="text"
-          placeholder="0"
-          onChange={this.handleChange}
-        />
+        <input value={value} type="text" onChange={this.handleChange} />
       </StyledDiv>
     );
   }
