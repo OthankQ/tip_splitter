@@ -94,8 +94,8 @@ export class MainContainer extends React.Component<{}, MainContainerState> {
     this.handleResetBtnClick = this.handleResetBtnClick.bind(this);
   }
 
-  handleBillInput(event: React.ChangeEvent<HTMLInputElement>, value: string) {
-    this.setState({ bill: parseFloat(value) });
+  handleBillInput(event: React.ChangeEvent<HTMLInputElement>, value: number) {
+    this.setState({ bill: value });
   }
 
   handleNumOfPeopleInput(
