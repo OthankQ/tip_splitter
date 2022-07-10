@@ -17,6 +17,10 @@ const StyledContainer = styled.div`
     letter-spacing: 0.4rem;
   }
 
+  .made-by {
+    margin-top: 30px;
+  }
+
   @media (max-width: 376px) {
     gap: 40px;
     height: 100%;
