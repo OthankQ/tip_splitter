@@ -89,7 +89,7 @@ export class MainContainer extends React.Component<{}, MainContainerState> {
     this.handleBillInput = this.handleBillInput.bind(this);
     this.handleNumOfPeopleInput = this.handleNumOfPeopleInput.bind(this);
     this.handleTipButtonPress = this.handleTipButtonPress.bind(this);
-    this.handleCustomButonPress = this.handleCustomButonPress.bind(this);
+    this.handleCustomButtonPress = this.handleCustomButtonPress.bind(this);
     this.handleInputValueChange = this.handleInputValueChange.bind(this);
     this.handleResetBtnClick = this.handleResetBtnClick.bind(this);
   }
@@ -106,15 +106,15 @@ export class MainContainer extends React.Component<{}, MainContainerState> {
   }
 
   handleTipButtonPress(newValue: string) {
-    this.setState({ tipPercentage: parseInt(newValue) });
+    this.setState({ tipPercentage: parseInt(newValue), isCustom: false });
   }
 
-  handleCustomButonPress() {
-    this.setState({ isCustom: !this.state.isCustom });
+  handleCustomButtonPress() {
+    this.setState({ isCustom: true, tipPercentage: 0 });
   }
 
   handleInputValueChange() {
-    const { bill, tipPercentage, numOfPeople } = this.state;
+    const { bill, tipPercentage, numOfPeople, isCustom } = this.state;
 
     let calculatedTipPerPerson = (bill * tipPercentage * 0.01) / numOfPeople;
     let calculatedTotalPerPerson = bill / numOfPeople + calculatedTipPerPerson;
@@ -165,7 +165,8 @@ export class MainContainer extends React.Component<{}, MainContainerState> {
   }
 
   render() {
-    const { tipPerPerson, totalPerPerson, bill, numOfPeople } = this.state;
+    const { tipPerPerson, totalPerPerson, bill, numOfPeople, isCustom } =
+      this.state;
     return (
       <StyledDiv>
         <div className="left-container">
@@ -179,7 +180,8 @@ export class MainContainer extends React.Component<{}, MainContainerState> {
             <h4>Select Tip %</h4>
             <TipButtoncluster
               onClick={this.handleTipButtonPress}
-              customClick={this.handleCustomButonPress}
+              customClick={this.handleCustomButtonPress}
+              isCustom={isCustom}
             />
           </div>
           <Input

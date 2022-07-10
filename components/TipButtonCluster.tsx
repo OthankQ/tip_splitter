@@ -27,11 +27,34 @@ const StyledDiv = styled.div`
       cursor: pointer;
     }
   }
+
+  .custom-input {
+    width: 30%;
+    height: 40px;
+    text-align: right;
+    background-color: hsl(189, 41%, 97%);
+    border-radius: 5px;
+    text-align: right;
+    font-size: 18px;
+    font-weight: bold;
+    color: hsl(183, 100%, 15%);
+    font-family: 'Space Mono', monospace;
+    border: none;
+    padding-right: 10px;
+
+    :focus-within {
+      outline: 3px solid hsl(173, 61%, 44%);
+    }
+    :focus {
+      outline: none;
+    }
+  }
 `;
 
 type tipButtonClusterProps = {
   onClick: (newValue: string) => void;
   customClick: () => void;
+  isCustom: boolean;
 };
 
 export class TipButtoncluster extends React.Component<
@@ -40,15 +63,27 @@ export class TipButtoncluster extends React.Component<
 > {
   constructor(props: tipButtonClusterProps) {
     super(props);
+    this.state = {
+      isCustom: false,
+    };
+
     this.handleCustomClick = this.handleCustomClick.bind(this);
   }
 
   handleCustomClick() {
     this.props.customClick();
+    this.setState({
+      isCustom: true,
+    });
+  }
+
+  handleTipButtonClick(event: any) {
+    this.props.onClick(event.target.value);
   }
 
   render() {
-    const { onClick } = this.props;
+    const { onClick, isCustom } = this.props;
+
     return (
       <StyledDiv>
         <TipButton onClick={onClick} percentage="5" />
@@ -56,9 +91,13 @@ export class TipButtoncluster extends React.Component<
         <TipButton onClick={onClick} percentage="15" />
         <TipButton onClick={onClick} percentage="25" />
         <TipButton onClick={onClick} percentage="50" />
-        <button className="custom" onClick={this.handleCustomClick}>
-          Custom
-        </button>
+        {!isCustom ? (
+          <button className="custom" onClick={this.handleCustomClick}>
+            Custom
+          </button>
+        ) : (
+          <input className="custom-input"></input>
+        )}
       </StyledDiv>
     );
   }
