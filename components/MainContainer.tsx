@@ -64,6 +64,20 @@ const StyledDiv = styled.div`
       cursor: pointer;
     }
   }
+
+  @media (max-width: 376px) {
+    margin-bottom: 100px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    width: 374px;
+    .left-container,
+    .right-container {
+      width: 100%;
+    }
+    gap: none;
+  }
 `;
 
 type MainContainerState = {

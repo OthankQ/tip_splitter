@@ -16,6 +16,19 @@ const StyledContainer = styled.div`
   .title {
     letter-spacing: 0.4rem;
   }
+
+  @media (max-width: 376px) {
+    gap: 40px;
+    height: 100%;
+
+    .made-by {
+      margin-bottom: 30px;
+    }
+
+    .title {
+      margin-top: 30px;
+    }
+  }
 `;
 
 const Home: NextPage = () => {
