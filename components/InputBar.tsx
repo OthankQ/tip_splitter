@@ -41,17 +41,19 @@ const StyledDiv = styled.div`
 
 type InputBarProps = {
   icon: string;
-  value: number;
+  value: number | string;
   onChange?: (
     event: React.ChangeEvent<HTMLInputElement>,
     value: string
   ) => void;
+  onClick: () => void;
 };
 
 export class InputBar extends React.Component<InputBarProps, {}> {
   constructor(props: InputBarProps) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   handleChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -60,12 +62,21 @@ export class InputBar extends React.Component<InputBarProps, {}> {
     }
   }
 
+  handleClick(event: React.FocusEvent<HTMLInputElement>) {
+    this.props.onClick();
+  }
+
   render() {
-    const { icon, value, onChange } = this.props;
+    const { icon, value } = this.props;
     return (
       <StyledDiv>
         <Image src={icon} alt="icon" />
-        <input value={value} type="text" onChange={this.handleChange} />
+        <input
+          value={value}
+          type="text"
+          onChange={this.handleChange}
+          onClick={this.handleClick}
+        />
       </StyledDiv>
     );
   }

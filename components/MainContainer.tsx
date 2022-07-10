@@ -7,6 +7,7 @@ import { ResultDisplay } from './ResultDisplay';
 
 import dollarSign from '../public/images/icon-dollar.svg';
 import personIcon from '../public/images/icon-person.svg';
+import { type } from 'os';
 
 const StyledDiv = styled.div`
   background-color: hsl(0, 0%, 100%);
@@ -66,9 +67,9 @@ const StyledDiv = styled.div`
 `;
 
 type MainContainerState = {
-  bill: number;
+  bill: number | string;
   tipPercentage: number;
-  numOfPeople: number;
+  numOfPeople: number | string;
   tipPerPerson: string;
   totalPerPerson: string;
   isCustom: boolean;
@@ -78,31 +79,44 @@ export class MainContainer extends React.Component<{}, MainContainerState> {
   constructor(props: {}) {
     super(props);
     this.state = {
-      bill: 0,
+      bill: '',
       tipPercentage: 0,
-      numOfPeople: 0,
+      numOfPeople: '',
       tipPerPerson: '$0.00',
       totalPerPerson: '$0.00',
       isCustom: false,
     };
 
     this.handleBillInput = this.handleBillInput.bind(this);
+    this.handleBillInputClick = this.handleBillInputClick.bind(this);
     this.handleNumOfPeopleInput = this.handleNumOfPeopleInput.bind(this);
+    this.handleNumOfPeopleInputClick =
+      this.handleNumOfPeopleInputClick.bind(this);
     this.handleTipButtonPress = this.handleTipButtonPress.bind(this);
     this.handleCustomButtonPress = this.handleCustomButtonPress.bind(this);
     this.handleInputValueChange = this.handleInputValueChange.bind(this);
     this.handleResetBtnClick = this.handleResetBtnClick.bind(this);
+    this.handleCustomTipInputChange =
+      this.handleCustomTipInputChange.bind(this);
   }
 
   handleBillInput(event: React.ChangeEvent<HTMLInputElement>, value: number) {
     this.setState({ bill: value });
   }
 
+  handleBillInputClick() {
+    this.setState({ bill: '' });
+  }
+
   handleNumOfPeopleInput(
     event: React.ChangeEvent<HTMLInputElement>,
-    value: string
+    value: number
   ) {
-    this.setState({ numOfPeople: parseInt(value) });
+    this.setState({ numOfPeople: value });
+  }
+
+  handleNumOfPeopleInputClick() {
+    this.setState({ numOfPeople: '' });
   }
 
   handleTipButtonPress(newValue: string) {
@@ -113,27 +127,54 @@ export class MainContainer extends React.Component<{}, MainContainerState> {
     this.setState({ isCustom: true, tipPercentage: 0 });
   }
 
+  handleCustomTipInputChange() {
+    this.setState({ bill: '' });
+  }
+
   handleInputValueChange() {
     const { bill, tipPercentage, numOfPeople, isCustom } = this.state;
 
-    let calculatedTipPerPerson = (bill * tipPercentage * 0.01) / numOfPeople;
-    let calculatedTotalPerPerson = bill / numOfPeople + calculatedTipPerPerson;
-
-    if (
-      !calculatedTipPerPerson ||
-      !calculatedTotalPerPerson ||
-      calculatedTipPerPerson == Infinity ||
-      calculatedTotalPerPerson == Infinity
-    ) {
-      this.setState({
-        tipPerPerson: '...',
-        totalPerPerson: '...',
-      });
-    } else {
-      this.setState({
-        tipPerPerson: `$${calculatedTipPerPerson.toFixed(2)}`,
-        totalPerPerson: `$${calculatedTotalPerPerson.toFixed(2)}`,
-      });
+    if (typeof bill == 'number' && typeof numOfPeople == 'number') {
+      let calculatedTipPerPerson = (bill * tipPercentage * 0.01) / numOfPeople;
+      let calculatedTotalPerPerson =
+        bill / numOfPeople + calculatedTipPerPerson;
+      if (
+        !calculatedTipPerPerson ||
+        !calculatedTotalPerPerson ||
+        calculatedTipPerPerson == Infinity ||
+        calculatedTotalPerPerson == Infinity
+      ) {
+        this.setState({
+          tipPerPerson: '...',
+          totalPerPerson: '...',
+        });
+      } else {
+        this.setState({
+          tipPerPerson: `$${calculatedTipPerPerson.toFixed(2)}`,
+          totalPerPerson: `$${calculatedTotalPerPerson.toFixed(2)}`,
+        });
+      }
+    } else if (typeof bill == 'string' && typeof numOfPeople == 'string') {
+      let calculatedTipPerPerson =
+        (parseFloat(bill) * tipPercentage * 0.01) / parseInt(numOfPeople);
+      let calculatedTotalPerPerson =
+        parseFloat(bill) / parseInt(numOfPeople) + calculatedTipPerPerson;
+      if (
+        !calculatedTipPerPerson ||
+        !calculatedTotalPerPerson ||
+        calculatedTipPerPerson == Infinity ||
+        calculatedTotalPerPerson == Infinity
+      ) {
+        this.setState({
+          tipPerPerson: '...',
+          totalPerPerson: '...',
+        });
+      } else {
+        this.setState({
+          tipPerPerson: `$${calculatedTipPerPerson.toFixed(2)}`,
+          totalPerPerson: `$${calculatedTotalPerPerson.toFixed(2)}`,
+        });
+      }
     }
   }
 
@@ -180,6 +221,7 @@ export class MainContainer extends React.Component<{}, MainContainerState> {
             label="Bill"
             icon={dollarSign}
             onChange={this.handleBillInput}
+            onClick={this.handleBillInputClick}
             value={bill}
           />
           <div className="tip-buttons">
@@ -196,6 +238,7 @@ export class MainContainer extends React.Component<{}, MainContainerState> {
             icon={personIcon}
             onChange={this.handleNumOfPeopleInput}
             value={numOfPeople}
+            onClick={this.handleNumOfPeopleInputClick}
           />
         </div>
         <div className="right-container">
