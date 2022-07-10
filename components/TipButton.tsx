@@ -23,11 +23,17 @@ const StyledButton = styled.button`
   :hover {
     cursor: pointer;
   }
+
+  .isSelected {
+    background-color: hsl(173, 61%, 44%);
+    color: hsl(183, 100%, 15%);
+  }
 `;
 
 type TipButtonProps = {
   percentage: string;
   onClick: (newValue: string) => void;
+  currentTipPercentage: number;
 };
 
 export class TipButton extends React.Component<TipButtonProps, {}> {
@@ -41,9 +47,22 @@ export class TipButton extends React.Component<TipButtonProps, {}> {
   }
 
   render() {
-    const { percentage } = this.props;
+    const { percentage, currentTipPercentage } = this.props;
     return (
-      <StyledButton value={percentage} onClick={this.handleClick}>
+      <StyledButton
+        style={{
+          backgroundColor:
+            parseInt(percentage) == currentTipPercentage
+              ? 'hsl(173, 61%, 44%)'
+              : 'hsl(183, 100%, 15%)',
+          color:
+            parseInt(percentage) == currentTipPercentage
+              ? 'hsl(183, 100%, 15%)'
+              : 'white',
+        }}
+        value={percentage}
+        onClick={this.handleClick}
+      >
         {percentage}%
       </StyledButton>
     );

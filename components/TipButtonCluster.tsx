@@ -1,5 +1,7 @@
 import React from 'react';
+import internal from 'stream';
 import styled from 'styled-components';
+import { createSecureContext } from 'tls';
 
 import { TipButton } from './TipButton';
 
@@ -41,12 +43,12 @@ const StyledDiv = styled.div`
     font-family: 'Space Mono', monospace;
     border: none;
     padding-right: 10px;
+    box-sizing: border-box;
 
     :focus-within {
-      outline: 3px solid hsl(173, 61%, 44%);
     }
     :focus {
-      outline: none;
+      outline: 3px solid hsl(173, 61%, 44%);
     }
   }
 `;
@@ -55,6 +57,7 @@ type tipButtonClusterProps = {
   onClick: (newValue: string) => void;
   customClick: () => void;
   isCustom: boolean;
+  currentTipPercentage: number;
 };
 
 export class TipButtoncluster extends React.Component<
@@ -82,21 +85,41 @@ export class TipButtoncluster extends React.Component<
   }
 
   render() {
-    const { onClick, isCustom } = this.props;
+    const { onClick, isCustom, currentTipPercentage } = this.props;
 
     return (
       <StyledDiv>
-        <TipButton onClick={onClick} percentage="5" />
-        <TipButton onClick={onClick} percentage="10" />
-        <TipButton onClick={onClick} percentage="15" />
-        <TipButton onClick={onClick} percentage="25" />
-        <TipButton onClick={onClick} percentage="50" />
+        <TipButton
+          onClick={onClick}
+          percentage="5"
+          currentTipPercentage={currentTipPercentage}
+        />
+        <TipButton
+          onClick={onClick}
+          percentage="10"
+          currentTipPercentage={currentTipPercentage}
+        />
+        <TipButton
+          onClick={onClick}
+          percentage="15"
+          currentTipPercentage={currentTipPercentage}
+        />
+        <TipButton
+          onClick={onClick}
+          percentage="25"
+          currentTipPercentage={currentTipPercentage}
+        />
+        <TipButton
+          onClick={onClick}
+          percentage="50"
+          currentTipPercentage={currentTipPercentage}
+        />
         {!isCustom ? (
           <button className="custom" onClick={this.handleCustomClick}>
             Custom
           </button>
         ) : (
-          <input className="custom-input"></input>
+          <input autoFocus className="custom-input"></input>
         )}
       </StyledDiv>
     );

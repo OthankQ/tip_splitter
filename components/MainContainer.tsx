@@ -165,8 +165,14 @@ export class MainContainer extends React.Component<{}, MainContainerState> {
   }
 
   render() {
-    const { tipPerPerson, totalPerPerson, bill, numOfPeople, isCustom } =
-      this.state;
+    const {
+      tipPerPerson,
+      totalPerPerson,
+      bill,
+      numOfPeople,
+      isCustom,
+      tipPercentage,
+    } = this.state;
     return (
       <StyledDiv>
         <div className="left-container">
@@ -182,6 +188,7 @@ export class MainContainer extends React.Component<{}, MainContainerState> {
               onClick={this.handleTipButtonPress}
               customClick={this.handleCustomButtonPress}
               isCustom={isCustom}
+              currentTipPercentage={tipPercentage}
             />
           </div>
           <Input
