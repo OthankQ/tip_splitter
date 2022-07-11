@@ -45,7 +45,7 @@ type InputBarProps = {
   value: number | string;
   onChange?: (
     event: React.ChangeEvent<HTMLInputElement>,
-    value: number
+    value: string
   ) => void;
   onClick: () => void;
   handleZero: (inputValue: number) => void;
