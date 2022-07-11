@@ -69,8 +69,8 @@ export class InputBar extends React.Component<InputBarProps, InputBarState> {
 
   handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     if (this.props.onChange) {
-      this.props.onChange(event, parseFloat(event.target.value));
-      this.handleZero(parseInt(event.target.value));
+      this.props.onChange(event, event.target.value);
+      this.handleZero(event.target.value);
     }
   }
 

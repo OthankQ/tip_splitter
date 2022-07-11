@@ -82,7 +82,7 @@ const StyledDiv = styled.div`
 
 type MainContainerState = {
   bill: number | string;
-  tipPercentage: number;
+  tipPercentage: number | string;
   numOfPeople: number | string;
   tipPerPerson: string;
   totalPerPerson: string;
@@ -142,17 +142,22 @@ export class MainContainer extends React.Component<{}, MainContainerState> {
   }
 
   handleCustomTipInputChange(event: React.ChangeEvent<HTMLInputElement>) {
-    console.log(event.target);
-    this.setState({ tipPercentage: parseInt(event.target.value) });
+    this.setState({ tipPercentage: event.target.value });
   }
 
   handleInputValueChange() {
-    const { bill, tipPercentage, numOfPeople, isCustom } = this.state;
+    console.log('this ran');
+    const { bill, tipPercentage, numOfPeople } = this.state;
 
-    if (typeof bill == 'number' && typeof numOfPeople == 'number') {
-      let calculatedTipPerPerson = (bill * tipPercentage * 0.01) / numOfPeople;
+    if (
+      typeof bill == 'string' &&
+      typeof numOfPeople == 'string' &&
+      typeof tipPercentage == 'number'
+    ) {
+      let calculatedTipPerPerson =
+        (parseFloat(bill) * tipPercentage * 0.01) / parseInt(numOfPeople);
       let calculatedTotalPerPerson =
-        bill / numOfPeople + calculatedTipPerPerson;
+        parseFloat(bill) / parseInt(numOfPeople) + calculatedTipPerPerson;
       if (
         !calculatedTipPerPerson ||
         !calculatedTotalPerPerson ||
@@ -169,9 +174,15 @@ export class MainContainer extends React.Component<{}, MainContainerState> {
           totalPerPerson: `$${calculatedTotalPerPerson.toFixed(2)}`,
         });
       }
-    } else if (typeof bill == 'string' && typeof numOfPeople == 'string') {
+    } else if (
+      typeof bill == 'string' &&
+      typeof numOfPeople == 'string' &&
+      typeof tipPercentage == 'string'
+    ) {
+      console.log('this ran');
       let calculatedTipPerPerson =
-        (parseFloat(bill) * tipPercentage * 0.01) / parseInt(numOfPeople);
+        (parseFloat(bill) * parseFloat(tipPercentage) * 0.01) /
+        parseInt(numOfPeople);
       let calculatedTotalPerPerson =
         parseFloat(bill) / parseInt(numOfPeople) + calculatedTipPerPerson;
       if (
