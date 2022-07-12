@@ -33,7 +33,7 @@ const StyledButton = styled.button`
 type TipButtonProps = {
   percentage: string;
   onClick: (newValue: string) => void;
-  currentTipPercentage: number;
+  currentTipPercentage: number | string;
 };
 
 export class TipButton extends React.Component<TipButtonProps, {}> {
@@ -42,7 +42,7 @@ export class TipButton extends React.Component<TipButtonProps, {}> {
     this.handleClick = this.handleClick.bind(this);
   }
 
-  handleClick(event: React.MouseEvent<HTMLInputElement>) {
+  handleClick(event: React.MouseEvent<HTMLButtonElement>) {
     this.props.onClick((event.target as HTMLInputElement).value);
   }
 

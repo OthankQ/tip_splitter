@@ -114,7 +114,7 @@ export class MainContainer extends React.Component<{}, MainContainerState> {
       this.handleCustomTipInputChange.bind(this);
   }
 
-  handleBillInput(event: React.ChangeEvent<HTMLInputElement>, value: number) {
+  handleBillInput(event: React.ChangeEvent<HTMLInputElement>, value: string) {
     this.setState({ bill: value });
   }
 
@@ -124,7 +124,7 @@ export class MainContainer extends React.Component<{}, MainContainerState> {
 
   handleNumOfPeopleInput(
     event: React.ChangeEvent<HTMLInputElement>,
-    value: number
+    value: string
   ) {
     this.setState({ numOfPeople: value });
   }
@@ -146,7 +146,6 @@ export class MainContainer extends React.Component<{}, MainContainerState> {
   }
 
   handleInputValueChange() {
-    console.log('this ran');
     const { bill, tipPercentage, numOfPeople } = this.state;
 
     if (
@@ -179,7 +178,6 @@ export class MainContainer extends React.Component<{}, MainContainerState> {
       typeof numOfPeople == 'string' &&
       typeof tipPercentage == 'string'
     ) {
-      console.log('this ran');
       let calculatedTipPerPerson =
         (parseFloat(bill) * parseFloat(tipPercentage) * 0.01) /
         parseInt(numOfPeople);

@@ -57,7 +57,7 @@ type tipButtonClusterProps = {
   onClick: (newValue: string) => void;
   customClick: () => void;
   isCustom: boolean;
-  currentTipPercentage: number;
+  currentTipPercentage: number | string;
   onCustomChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
