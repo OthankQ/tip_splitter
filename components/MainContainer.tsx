@@ -65,7 +65,7 @@ const StyledDiv = styled.div`
     }
   }
 
-  @media (max-width: 376px) {
+  @media (max-width: 805px) {
     margin-bottom: 100px;
     flex-direction: column;
     justify-content: center;

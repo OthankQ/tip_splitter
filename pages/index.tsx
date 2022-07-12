@@ -21,7 +21,7 @@ const StyledContainer = styled.div`
     margin-top: 30px;
   }
 
-  @media (max-width: 376px) {
+  @media (max-width: 805px) {
     gap: 40px;
     height: 100%;
 
